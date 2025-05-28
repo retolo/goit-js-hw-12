@@ -4,36 +4,10 @@ import "izitoast/dist/css/iziToast.min.css";
 
 
 import axios from 'axios';
-import createGallery from "./render-functions";
-const loadButton = document.querySelector('.load-button');
 
 
+async function getImagesByQuery(query, Page){
 
-
-
-
-
-
-
-
-let userPrompt = '';
-let Page = 1;
-async function getImagesByQuery(query){
-
-    if(userPrompt !== query){
-        userPrompt = query;
-        Page = 1;
-    }
-    else{
-        Page += 1;
-    }
-
- 
-    
-    
-            
-
-    
             const getHttp = axios({
                 method:'get',
                 url: 'https://pixabay.com/api/',
@@ -48,12 +22,7 @@ async function getImagesByQuery(query){
                     } 
 
             })
-            
 
-            
-                
-            
-            
             const value = await getHttp;
                 const images = value.data.hits;
                 
@@ -62,84 +31,21 @@ async function getImagesByQuery(query){
                 const totalhits = value.data.totalHits;
                 
                 
-                if(images.length === 0){
-                    iziToast.show({
+                // if(images.length === 0){
+                //     iziToast.show({
                 
-                        message: 'Sorry, there are no images matching your search query. Please try again!',
-                        color: 'red',
-                        messageColor: 'white',
-                        position: 'topRight'
+                //         message: 'Sorry, there are no images matching your search query. Please try again!',
+                //         color: 'red',
+                //         messageColor: 'white',
+                //         position: 'topRight'
         
-                    });
+                //     });
                     
 
-                }
+                // }
 
-                
-                
-
-                
-                
-                
-                
-
-                
-                
-                
-                
                 return {Images: images, TotalHits: totalhits}; 
         }
-        
-
-        // loadButton.addEventListener('click',   async (event) =>{
-            
-        //     Page += 1;
-            
-        //     if(Page > totalPages){
-        //         iziToast.show({
-                
-        //             message: "We're sorry, but you've reached the end of search results.",
-
-        //             color: 'red',
-        //             messageColor: 'white',
-        //             position: 'topRight'
-    
-        //         });
-        //         hideLoadMoreButton();
-
-        //     }
-        //     else{
-        //         const images = await getImagesByQuery(userPrompt);
-                
-        //         showLoader()
-        //         createGallery(images);
-        //         hideLoader();
-
-        //     }
-
-            
-            
-            
-            
-            
-            
-                
-            
-        // })
-
-
-        
-
-        
-
-
-        
-
-
-        
-
-
-   
 
 export default getImagesByQuery;
 
